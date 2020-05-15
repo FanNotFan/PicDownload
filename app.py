@@ -13,6 +13,8 @@ from flask import render_template, flash
 
 from service.googleimagedownload import GoogleCrawler
 from service.baiduimagedownload import BaiduCrawler
+from service.bingimagedownload import BingCrawler
+from service import bingimagedownload
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 
@@ -52,11 +54,20 @@ def download():
     print("todo")
     try:
         if searchEngine == "Google":
+            print("Google 执行中")
             craw = GoogleCrawler()
             craw.run(keyword)
         if searchEngine == "Baidu":
+            print("Baidu 执行中")
             craw = BaiduCrawler()
             craw.run(keyword)
+        if searchEngine == "Bing":
+            print("Bing 执行中")
+            craw = BingCrawler()
+            craw.run(keyword)
+        else:
+            flash('engine error')
+            return redirect("/search")
         flash('Download has finished!!!')
         return redirect("/search")
     except Exception as e:

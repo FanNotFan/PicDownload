@@ -5,12 +5,10 @@ import urllib.request
 from bs4 import BeautifulSoup as bs
 import os
 from tool.queue import log
+from settings import LOCAL_CHROME_DRIVER, GOOGLE_LOCAL_IMAGE_STORAGE_PATH
 
 base_url_part1 = 'https://www.google.com/search?q='
 base_url_part2 = '&source=lnms&tbm=isch'
-search_query = '송장'
-location_driver = '/Users/hiCore/Software/WebDrivers/chromedriver_81'
-location_image_path = '/Users/hiCore/Downloads/GoogleImage'
 
 
 class GoogleCrawler:
@@ -20,16 +18,18 @@ class GoogleCrawler:
     def start_brower(self, search_query):
         chrome_options = Options()
         chrome_options.add_argument("--disable-infobars")
-        driver = webdriver.Chrome(executable_path=location_driver, chrome_options=chrome_options)
+        driver = webdriver.Chrome(executable_path=LOCAL_CHROME_DRIVER, chrome_options=chrome_options)
         driver.maximize_window()
         driver.get(self.url % (search_query))
         return driver
 
-    def downloadImg(self, driver):
-        t = time.localtime(time.time())
-        foldername = str(t.__getattribute__("tm_year")) + "-" + str(t.__getattribute__("tm_mon")) + "-" + \
-                     str(t.__getattribute__("tm_mday"))
-        picpath = location_image_path + '/%s' % (foldername)
+    def downloadImg(self, driver, search_query):
+        # t = time.localtime(time.time())
+        # foldername = str(t.__getattribute__("tm_year")) + "-" + str(t.__getattribute__("tm_mon")) + "-" + \
+        #              str(t.__getattribute__("tm_mday"))
+        # picpath = GOOGLE_LOCAL_IMAGE_STORAGE_PATH + '/%s' % (foldername)
+        image_directory = search_query.replace(' ', '_')
+        picpath = GOOGLE_LOCAL_IMAGE_STORAGE_PATH + '/%s' % (image_directory)
         if not os.path.exists(picpath): os.makedirs(picpath)
 
         img_url_dic = {}
@@ -60,11 +60,11 @@ class GoogleCrawler:
 
     def run(self, search_query):
         driver = self.start_brower(search_query)
-        self.downloadImg(driver)
+        self.downloadImg(driver, search_query)
         driver.close()
         print("Download has finished.")
 
 
 if __name__ == '__main__':
     craw = GoogleCrawler()
-    craw.run("송장")
+    craw.run("孙俪")
