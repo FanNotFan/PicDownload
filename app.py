@@ -44,13 +44,17 @@ def download():
     else:
         log("searchEngine : {}".format(searchEngine))
     keyword = request.form.get('keyword')
+    numberOfImages = request.form.get('numberOfImages')
     keyword = keyword.strip()
+    numberOfImages = numberOfImages.strip()
     print("keyword::" + str(keyword))
-    log("keyword::" + str(keyword))
     if keyword is None or keyword == '':
         print("keyword is none")
         flash('please input keyword')
         return redirect("/search")
+    if numberOfImages is None or numberOfImages == '':
+        print("keyword is none")
+        numberOfImages = 10
     print("todo")
     try:
         if searchEngine == "Google":
@@ -64,7 +68,7 @@ def download():
         if searchEngine == "Bing":
             print("Bing 执行中")
             craw = BingCrawler()
-            craw.run(keyword)
+            craw.run(keyword, numberOfImages)
         else:
             flash('engine error')
             return redirect("/search")

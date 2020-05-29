@@ -28,7 +28,7 @@ print("APP_STATIC: {}".format(APP_STATIC))
 PLATFORM_SYSTEM = platform.system()
 print("PLATFORM_SYSTEM: {}".format(PLATFORM_SYSTEM))
 
-LOCAL_CHROME_DRIVER = '/Users/hiCore/Software/WebDrivers/chromedriver_81'
+LOCAL_CHROME_DRIVER = '/Users/hiCore/Software/WebDrivers/chromedriver_83'
 GOOGLE_LOCAL_IMAGE_STORAGE_PATH = APP_STATIC+'/GoogleImage' + '/%s' % (foldername)
 BAIDU_LOCAL_IMAGE_STORAGE_PATH = APP_STATIC+'/BaiduImage' + '/%s' % (foldername)
 BING_LOCAL_IMAGE_STORAGE_PATH = APP_STATIC+'/BingImage' + '/%s' % (foldername)

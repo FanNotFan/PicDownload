@@ -904,7 +904,7 @@ class BingCrawler:
                     total_errors = total_errors + errorCount
         return paths, total_errors
 
-    def run(self, keyword):
+    def run(self, keyword, numberOfImages):
         # records = user_input()
         url = 'https://www.bing.com/images/search?q=%s' % keyword.replace(' ', '%20')
         image_directory = keyword.replace(' ', '_')
@@ -923,7 +923,7 @@ class BingCrawler:
                     'keywords': None,
                     'keywords_from_file': None,
                     'language': False,
-                    'limit': '10',
+                    'limit': numberOfImages,
                     'metadata': False,
                     'no_numbering': False,
                     'offset': None,
@@ -975,4 +975,5 @@ class BingCrawler:
 if __name__ == "__main__":
     craw = BingCrawler()
     search_query = '彭于晏'
-    craw.run(search_query)
+    numberOfImages = 17
+    craw.run(search_query, numberOfImages)
